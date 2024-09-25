@@ -32,4 +32,10 @@ class RegisterController extends Controller
     public function term(){
         return view('term');
     }
+
+    public function view_user(){
+     $users = User::all();
+     $data = compact($users);
+     return view('user-output')->with($data);
+    }
 }
