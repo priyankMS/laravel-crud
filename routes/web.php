@@ -62,9 +62,10 @@ Route::get('model',function (){
 
 
 Route::prefix('register')->group(function () {
-    Route::get('/form',[RegisterController::class ,'index']);
+    Route::get('/form',[RegisterController::class ,'index'])->name('frm');
     Route::get('/term',[RegisterController::class,'term'])->name('term');
     Route::get('/view',[RegisterController::class,'view_user']);
     Route::post('/',[RegisterController::class ,'register']);
+    Route::put('update/{id}',[RegisterController::class ,'edit_data' ]);
 });
 

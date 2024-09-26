@@ -13,7 +13,7 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request){
-       print_r($request->all());
+    //    print_r($request->all());
        $request->validate([
          'name'=> 'required',
          'email'=>'required|email|unique:users',
@@ -25,7 +25,7 @@ class RegisterController extends Controller
        $user->email = $request->email;
        $user->password =  $request->fpassword;
        $user->save();
-
+       toastr()->success('Data has been saved successfully!');
        return redirect('/register/view');
     }
 
@@ -33,9 +33,23 @@ class RegisterController extends Controller
         return view('term');
     }
 
-    public function view_user(){
-     $users = User::all();
-     $data = compact($users);
-     return view('user-output')->with($data);
+   public function view_user(){
+    $users = User::all();
+    return view('user-output', ['users' => $users]);
     }
+
+    public function edit_data(Request  $request ,$id){
+      $request->validate([
+         'name'=> 'required',
+         'email'=>'required|email',
+         'fpassword'=>'required',
+       ]);
+       $user  = User::find($id);
+       $user->name = $request->name;
+       $user->email = $request->email;
+       $user->password =  $request->fpassword;
+       $user->save();
+       return redirect('/register/view')->with('success','user  updated successfully');
+    }
+
 }
