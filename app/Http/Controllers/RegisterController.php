@@ -52,4 +52,17 @@ class RegisterController extends Controller
        return redirect('/register/view')->with('success','user  updated successfully');
     }
 
+  public function destroy($id) {
+    try {
+        $user = User::findOrFail($id);
+        $user->delete();
+        
+        return redirect('/register/view')->with('success', 'User deleted successfully.');
+    } catch (\Exception $e) {
+        return redirect('/register/view')->with('error', 'Error deleting user: ' . $e->getMessage());
+    }
+}
+
+
+
 }

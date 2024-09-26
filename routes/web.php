@@ -67,5 +67,6 @@ Route::prefix('register')->group(function () {
     Route::get('/view',[RegisterController::class,'view_user']);
     Route::post('/',[RegisterController::class ,'register']);
     Route::put('update/{id}',[RegisterController::class ,'edit_data' ]);
+    Route::delete('delete/{id}',[RegisterController::class,'destroy']);
 });
 
