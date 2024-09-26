@@ -24,49 +24,27 @@ Route::get('/', function () {
 //     return view('homePage');
 // });
 
-
-Route::get('home/introduction-done',function () {
+Route::get('home/introduction-done', function () {
     return view('homePage');
 })->name('about');
 
-Route::get('api/user/{value?}',function ($value=null) {
-    return view('homePage')->with(['value'=>$value]);
+Route::get('api/user/{value?}', function ($value = null) {
+    return view('homePage')->with(['value' => $value]);
 });
 
-//signle function controller calling
-Route::get('/api/v3',TestController::class);
-
-//controller this is calling 
-Route::get('/api/{name?}' ,[UserController::class,'index']);
-
-//second controller is calling 
-Route::get('api/v1/{id?}',[UserController::class,'showID']);
-
-//validation on only number
-Route::get('/valid/{id?}',function ($id=null) { 
-   return $id; 
-})->whereNumber('id');
-
-//validation on alpha
-Route::get('/valid2/{name?}',function ($name) {
-    return $name;
-})->whereAlpha('name');
-
-
 //using model
-Route::get('model',function (){
+Route::get('model', function () {
     $emp = Employee::all();
     echo "<pre>";
     print_r($emp->toArray());
 });
 
-
 Route::prefix('register')->group(function () {
-    Route::get('/form',[RegisterController::class ,'index'])->name('frm');
-    Route::get('/term',[RegisterController::class,'term'])->name('term');
-    Route::get('/view',[RegisterController::class,'view_user']);
-    Route::post('/',[RegisterController::class ,'register']);
-    Route::put('update/{id}',[RegisterController::class ,'edit_data' ]);
-    Route::delete('delete/{id}',[RegisterController::class,'destroy']);
+    Route::get('/form', [RegisterController::class, 'index'])->name('frm');
+    Route::get('/term', [RegisterController::class, 'term'])->name('term');
+    Route::get('/view', [RegisterController::class, 'view_user']);
+    Route::post('/', [RegisterController::class, 'register']);
+    Route::put('update/{id}', [RegisterController::class, 'edit_data']);
+    Route::delete('delete/{id}', [RegisterController::class, 'destroy']);
 });
 
